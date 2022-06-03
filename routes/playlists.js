@@ -13,7 +13,7 @@ const auth = require("../middleware/auth");
 // get all the playlists
 router.get("/", async (req, res) => {
   try {
-    const playlists = await Song.find();
+    const playlists = await Playlist.find();
     res.status(200).send({ data: playlists });
   } catch (error) {
     // all other errors
@@ -37,10 +37,14 @@ router.post("/", auth, async (req, res) => {
     }
 
     //find user
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).select("-password -__v");
+
+    //match user that is logged in with with user._id
     // add playlist to the DB with user ID
     const playlist = await Playlist.create({
-      ...req.body,
+      name,
+      desc,
+      img,
       user: user._id,
     });
 
