@@ -10,6 +10,21 @@ const auth = require("../middleware/auth");
 
 //Routes for Playlists////
 
+// get all the playlists
+router.get("/", async (req, res) => {
+  try {
+    const playlists = await Song.find();
+    res.status(200).send({ data: playlists });
+  } catch (error) {
+    // all other errors
+    return res.status(500).json({
+      status: 500,
+      message: "Server error",
+      requestAt: new Date().toLocaleString(),
+    });
+  }
+});
+
 // create a new playlist
 router.post("/", auth, async (req, res) => {
   try {
