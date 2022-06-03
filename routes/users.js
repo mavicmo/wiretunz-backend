@@ -142,12 +142,14 @@ router.get("/:id", auth, async (req, res) => {
 
 //update user data
 router.put("/:id", auth, async (req, res) => {
+  console.log(req.headers);
   try {
     const user = await User.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
       { new: true }
     ).select("-password -__v");
+    user.token = req.headers.authorization;
     res.status(200).send({ data: user, message: "User has been updated" });
   } catch (error) {
     console.log(error);
