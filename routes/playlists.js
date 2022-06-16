@@ -8,6 +8,9 @@ const Playlist = require("../model/Playlist");
 const validObjectID = require("../middleware/validObjectID");
 const auth = require("../middleware/auth");
 
+const client_id = "1d7ae6fb9e7947a8bc49ca82b84069a1";
+const client_secret = "0f7cdc8801454a29878f54b5a5f1e330";
+
 //Routes for Playlists////
 
 // get all the playlists
@@ -76,6 +79,7 @@ router.put("/editplaylist/:id", auth, async (req, res) => {
 
     //find the playlist by ID
     const playlist = await Playlist.findById(req.params.id);
+
     if (!playlist)
       return res.status(404).send({ message: "Playlist was not found!" });
 

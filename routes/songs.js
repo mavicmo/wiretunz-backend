@@ -5,7 +5,40 @@ const User = require("../model/User");
 const Song = require("../model/Song");
 const validObjectID = require("../middleware/validObjectID");
 const auth = require("../middleware/auth");
+const axios = require("axios");
+// const client_id = "1d7ae6fb9e7947a8bc49ca82b84069a1";
+// const client_secret = "0f7cdc8801454a29878f54b5a5f1e330";
 
+// router.get("/spotify", async (req, res) => {
+//   const params = new URLSearchParams();
+//   params.append("grant_type", "client_credentials");
+//   axios
+//     .post("https://accounts.spotify.com/api/token", params, {
+//       headers: {
+//         Authorization:
+//           "Basic " +
+//           new Buffer.from(client_id + ":" + client_secret).toString("base64"),
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//     })
+//     .then((song) => {
+//       const token = song.data.access_token;
+//       axios
+//         .get(`https://api.spotify.com/v1/tracks`, {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//           params: {
+//             // q: searchKey,
+//             // type: "track",
+//           },
+//         })
+//         .then((songs) => {
+//           res.json(songs.data);
+//         })
+//         .catch(console.error);
+//     });
+// });
 // get all the songs
 router.get("/", async (req, res) => {
   try {
@@ -25,17 +58,16 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     // user input for the songs
-    const { name, artist, song, img } = req.body;
+    const { name, artist, img } = req.body;
 
     //validate empty string
-    if (!(name && artist && song && img)) {
+    if (!(name && artist && img)) {
       throw "inputError";
     }
 
     const music = await Song.create({
       name,
       artist,
-      song,
       img,
     });
     //send message user was created
