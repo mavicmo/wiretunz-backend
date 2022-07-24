@@ -54,6 +54,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+//get song by id
+router.get("/songId/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const song = await Song.findById(id);
+
+    if (!song) return res.status(404).send({ message: "No playlist found" });
+    res.status(200).send({ data: { song } });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 500,
+      message: "Server error",
+      requestAt: new Date().toLocaleString(),
+    });
+  }
+});
+
 // create a new song
 router.post("/", async (req, res) => {
   try {
@@ -129,6 +147,21 @@ router.delete("/:id", async (req, res) => {
     });
   }
 });
+router.get("/likedsongs/", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const songs = await Song.find({ id: user.likedSongs });
+    res.status(200).send({ data: songs });
+  } catch (error) {
+    console.log(error);
+    // all other errors
+    return res.status(500).json({
+      status: 500,
+      message: "Server error for likedsongs",
+      requestAt: new Date().toLocaleString(),
+    });
+  }
+});
 
 // route for liked song
 router.put("/likedsong/:id", [validObjectID, auth], async (req, res) => {
@@ -160,21 +193,5 @@ router.put("/likedsong/:id", [validObjectID, auth], async (req, res) => {
 });
 
 // show all the liked songs
-
-router.get("/likedsongs/", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    const songs = await Song.find({ _id: user.likedSongs });
-    res.status(200).send({ data: songs });
-  } catch (error) {
-    console.log(error);
-    // all other errors
-    return res.status(500).json({
-      status: 500,
-      message: "Server error",
-      requestAt: new Date().toLocaleString(),
-    });
-  }
-});
 
 module.exports = router;
