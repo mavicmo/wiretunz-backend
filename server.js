@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/favicon.ico", (req, res) => {
+app.get("/test", (req, res) => {
   console.log("test123");
 });
 

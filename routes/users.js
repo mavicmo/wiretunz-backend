@@ -10,6 +10,7 @@ const bcrypt = require("bcrypt");
 router.post("/signup", async (req, res) => {
   try {
     // user input and convert to lowercase
+
     const { firstName, lastName, email, password } = req.body;
 
     // validate user has entered something
