@@ -14,9 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", (req, res) => {
-  res.send("welcome to the server home page");
-});
+// app.use("/", (req, res) => {
+//   res.send("welcome to the server home page");
+// });
 
 app.use("/users/", usersRoute);
 app.use("/songs/", songsRoute);
