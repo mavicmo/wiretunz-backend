@@ -21,7 +21,7 @@ app.get("/test", (req, res) => {
 app.use("/users/", usersRoute);
 app.use("/songs/", songsRoute);
 app.use("/playlist/", playlistsRoute);
-app.use("/", searchRoute);
+// app.use("/", searchRoute);
 
 app.set("port", process.env.PORT || 3001);
 
