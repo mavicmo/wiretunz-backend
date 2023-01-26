@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/users/", usersRoute);
 app.use("/songs/", songsRoute);
 app.use("/playlist/", playlistsRoute);
-// app.use("/", searchRoute);
+app.use("/search", searchRoute);
 
 app.set("port", process.env.PORT || 3001);
 
