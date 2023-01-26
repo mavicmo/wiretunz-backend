@@ -14,8 +14,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/test", (req, res) => {
-  console.log("test123");
+app.use("/", (req, res) => {
+  res.send("welcome to the server home page");
 });
 
 app.use("/users/", usersRoute);
