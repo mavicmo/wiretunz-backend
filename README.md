@@ -1,5 +1,8 @@
 # Backend README.md
 
+Frontend github: https://github.com/mavicmo/wiretunz-frontend
+App Link: https://wiretunz.netlify.app/ 
+
 ## Wire Frame
 
 https://i.imgur.com/SvxLDKv.png
